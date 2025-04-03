@@ -6,7 +6,6 @@ describe('WeatherAPI', () => {
   beforeEach(() => {
     jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(null);
     jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {});
-    
 
     weatherAPI = new WeatherAPI('historyCities');
   });
@@ -17,25 +16,29 @@ describe('WeatherAPI', () => {
   describe('createCity', () => {
     it('should add a city to localStorage', async () => {
       const mockCities = ['Novosibirsk'];
-      (localStorage.getItem as jest.Mock).mockReturnValueOnce(JSON.stringify(mockCities));
+      (localStorage.getItem as jest.Mock).mockReturnValueOnce(
+        JSON.stringify(mockCities),
+      );
 
       await weatherAPI.createCity('Moscow');
 
       expect(localStorage.setItem).toHaveBeenCalledWith(
         'historyCities',
-        JSON.stringify(['Novosibirsk','Moscow'])
+        JSON.stringify(['Novosibirsk', 'Moscow']),
       );
     });
 
     it('should move an existing city to the top of the list', async () => {
       const mockCities = ['Moscow', 'Novosibirsk'];
-      (localStorage.getItem as jest.Mock).mockReturnValue(JSON.stringify(mockCities));
+      (localStorage.getItem as jest.Mock).mockReturnValue(
+        JSON.stringify(mockCities),
+      );
 
       await weatherAPI.createCity('Novosibirsk');
 
       expect(localStorage.setItem).toHaveBeenCalledWith(
         'historyCities',
-        JSON.stringify(['Novosibirsk', 'Moscow'])
+        JSON.stringify(['Novosibirsk', 'Moscow']),
       );
     });
   });
@@ -43,7 +46,9 @@ describe('WeatherAPI', () => {
   describe('readCities', () => {
     it('should return cities from localStorage', async () => {
       const mockCities = ['Moscow', 'Novosibirsk'];
-      (localStorage.getItem as jest.Mock).mockReturnValue(JSON.stringify(mockCities));
+      (localStorage.getItem as jest.Mock).mockReturnValue(
+        JSON.stringify(mockCities),
+      );
 
       const cities = await weatherAPI.readCities();
 
@@ -68,7 +73,7 @@ describe('WeatherAPI', () => {
       global.fetch = jest.fn(() =>
         Promise.resolve({
           json: () => Promise.resolve(mockResponse),
-        } as Response)
+        } as Response),
       );
 
       const locationInfo = await weatherAPI.getLocationInfo();
@@ -100,7 +105,7 @@ describe('WeatherAPI', () => {
       global.fetch = jest.fn(() =>
         Promise.resolve({
           json: () => Promise.resolve(mockResponse),
-        } as Response)
+        } as Response),
       );
 
       const weatherInfo = await weatherAPI.getWeatherInfo('Moscow');
@@ -118,7 +123,7 @@ describe('WeatherAPI', () => {
       global.fetch = jest.fn(() =>
         Promise.resolve({
           json: () => Promise.resolve(mockResponse),
-        } as Response)
+        } as Response),
       );
 
       const weatherInfo = await weatherAPI.getWeatherInfo('InvalidCity');

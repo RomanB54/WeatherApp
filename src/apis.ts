@@ -61,17 +61,18 @@ export class WeatherAPI implements IStorage, IWeatherAPI {
           coordinates: [splittedCoord[1], splittedCoord[0]],
         };
         return locationObject;
-      }  else {
-        return "Failed to get location"
+      } else {
+        return 'Failed to get location';
       }
     } catch (e) {
       console.log('Failed to get location', e);
-      return "Failed to get location"
-    
+      return 'Failed to get location';
     }
   }
 
-  async getWeatherInfo(city: string): Promise<IWeatherObject | "Unknown information"> {
+  async getWeatherInfo(
+    city: string,
+  ): Promise<IWeatherObject | 'Unknown information'> {
     try {
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=50e9562e52bdc95310309ebf4c74c77c&units=metric&lang=en`,

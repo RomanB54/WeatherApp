@@ -8,7 +8,7 @@ export default defineConfig([
     files: ['**/*.{js,mjs,cjs,ts}'],
   },
   {
-    ignores: ['dist/**/*', 'node_modules/**/*'],
+    ignores: ['dist/**/*', 'node_modules/**/*', 'coverage/**/*'],
   },
   {
     files: ['**/*.{js,mjs,cjs,ts}'],

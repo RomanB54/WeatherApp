@@ -6,4 +6,3 @@ const mainPageView = document.querySelector('.app') as HTMLElement;
 
 new WeatherAPI('historyCities');
 new View(mainPageView);
-
